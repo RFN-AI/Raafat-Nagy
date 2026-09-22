@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { cn } from '../utils/cn';
 import { youtubeThumbnail } from '../utils/youtube';
-import { EyebrowOverlay } from './EyebrowOverlay';
 
 interface ProjectThumbProps {
   title: string;
@@ -35,8 +34,7 @@ function FallbackArt({ title }: { title: string }) {
 
 /**
  * Project visual: YouTube demo thumbnail when a demo video exists,
- * otherwise an intentional category/initials-based placeholder.
- * The "AI engineer" detection overlay is applied on top of both.
+ * otherwise an intentional monogram-and-grid placeholder.
  */
 export function ProjectThumb({ title, videoId, className, eager = false }: ProjectThumbProps) {
   const [imageFailed, setImageFailed] = useState(false);
@@ -68,7 +66,6 @@ export function ProjectThumb({ title, videoId, className, eager = false }: Proje
       ) : (
         <FallbackArt title={title} />
       )}
-      <EyebrowOverlay />
     </div>
   );
 }

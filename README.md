@@ -30,8 +30,8 @@ src/
 
 All portfolio content lives in `src/data/` — add or edit a project by updating
 `src/data/projects.ts` only; every section renders from that data layer.
-Projects with a YouTube demo automatically use the video thumbnail, stamped with
-an "AI engineer detected" computer-vision overlay.
+Projects with a YouTube demo automatically use the video thumbnail; projects
+without one get a clean monogram-and-grid placeholder.
 
 ## Local Development
 
