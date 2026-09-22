@@ -33,6 +33,20 @@ All portfolio content lives in `src/data/` — add or edit a project by updating
 Projects with a YouTube demo automatically use the video thumbnail; projects
 without one get a clean monogram-and-grid placeholder.
 
+### Demo thumbnails & cache busting
+
+Project cards show each demo video's official YouTube thumbnail
+(`https://i.ytimg.com/vi/<id>/hqdefault.jpg`). YouTube never changes that URL
+when a thumbnail is replaced, so browsers and intermediary caches may keep
+showing the old image.
+
+The site therefore appends a `?v=` cache-busting token — `THUMBNAIL_VERSION`
+in [`src/utils/youtube.ts`](src/utils/youtube.ts). **After refreshing a
+thumbnail on YouTube: bump the constant, commit, redeploy.** Every visitor
+then fetches the new image exactly once, and normal caching keeps loading
+fast between bumps. If a thumbnail cannot be loaded at all, the card falls
+back to the grid placeholder automatically.
+
 ## Local Development
 
 ```bash
