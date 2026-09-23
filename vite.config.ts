@@ -28,9 +28,11 @@ export default defineConfig({
       // Static multi-page build (no router needed):
       //   index.html           -> /            (homepage)
       //   projects/index.html  -> /projects/   (all-projects page)
+      //   cv/index.html        -> /cv/         (standalone CV page)
       input: {
         main: fileURLToPath(new URL('./index.html', import.meta.url)),
         projects: fileURLToPath(new URL('./projects/index.html', import.meta.url)),
+        cv: fileURLToPath(new URL('./cv/index.html', import.meta.url)),
       },
     },
   },

@@ -21,13 +21,17 @@ Static multi-page build (no router needed):
   Education, Contact.
 - `projects/index.html` → the `/projects/` page: the full, filterable
   All Projects explorer (same components, no duplication).
+- `cv/index.html` → the `/cv/` page: a standalone full-screen CV viewer.
+  Same Drive PDF embed, header, icons, and actions as the in-portfolio
+  modal, but a separate entry. It is not linked from the navbar.
 
-Both deploy as plain static files, so `/projects/` works natively on
-GitHub Pages (deep links and refreshes included).
+These deploy as plain static files, so `/projects/` and `/cv/` work natively
+on GitHub Pages (deep links and refreshes included). The Vite `base` path is
+unchanged.
 
 ```text
 src/
-├── components/        # UI components (Navbar, Hero, FeaturedProjects, Projects, …)
+├── components/        # UI components (Navbar, Hero, CvViewer, CvModal, …)
 ├── data/              # Single source of truth: projects, technologies, site info
 ├── types/             # TypeScript interfaces (Project, ProjectLink, …)
 ├── animations/        # Shared Framer Motion variants
@@ -35,8 +39,10 @@ src/
 ├── utils/             # cn(), links, asset and YouTube thumbnail helpers
 ├── App.tsx            # homepage shell
 ├── ProjectsPage.tsx   # /projects page shell
+├── CvPage.tsx         # /cv page shell
 ├── main.tsx           # homepage entry
 ├── projects-main.tsx  # /projects entry
+├── cv-main.tsx        # /cv entry
 └── index.css          # Tailwind v4 theme tokens (light + dark palettes)
 ```
 
