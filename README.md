@@ -31,7 +31,7 @@ unchanged.
 
 ```text
 src/
-├── components/        # UI components (Navbar, Hero, FeaturedProjects, Projects, …)
+├── components/        # UI components (Navbar, Hero, CvViewer, CvModal, …)
 ├── data/              # Single source of truth: projects, technologies, site info
 ├── types/             # TypeScript interfaces (Project, ProjectLink, …)
 ├── animations/        # Shared Framer Motion variants
