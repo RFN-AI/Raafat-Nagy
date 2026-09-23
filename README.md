@@ -1,79 +1,44 @@
 # Raafat Nagy — AI Engineer Portfolio
 
-Personal portfolio website for **Raafat Nagy — AI Engineer**, showcasing practical,
-end-to-end AI projects across Computer Vision, NLP / RAG, Deep Learning, Machine
-Learning, and Time-Series Forecasting.
+Personal portfolio website of **Raafat Nagy**, an AI Engineer building practical,
+end-to-end AI systems — from model development to deployed applications.
 
-The site content is based on the [AI Projects Hub](https://github.com/Raafat-Nagy/AI-Projects-Hub).
+The site presents selected work, the full project archive, the technologies behind it,
+and a direct way to get in touch. It is a fully static site, built with React and Vite
+and deployed on GitHub Pages.
+
+**Live site:** <https://raafat-nagy.github.io/>
+**Repository:** <https://github.com/Raafat-Nagy/Raafat-Nagy.github.io>
 
 ## Tech Stack
 
 - **React 19** + **TypeScript**
-- **Vite** — build tool (static output, no backend)
-- **Tailwind CSS 4** — styling (dark-first design with a light-mode toggle)
-- **Framer Motion** — subtle animations (respects `prefers-reduced-motion`)
+- **Vite** — build tool, static output, no backend
+- **Tailwind CSS 4** — dark-first design with a light-mode toggle
+- **Framer Motion** — subtle animations that respect `prefers-reduced-motion`
 
-## Project Structure
+## Pages & Sections
 
-Static multi-page build (no router needed):
+| Route | Contents |
+| --- | --- |
+| `/` | Hero, Featured Projects, Technologies, About, Education, Contact |
+| `/projects/` | The complete project archive, filterable by domain |
+| `/cv/` | Standalone full-screen CV viewer |
 
-- `index.html` → the homepage: Hero, Featured Projects, Technologies, About,
-  Education, Contact.
-- `projects/index.html` → the `/projects/` page: the full, filterable
-  All Projects explorer (same components, no duplication).
-- `cv/index.html` → the `/cv/` page: a standalone full-screen CV viewer.
-  Same Drive PDF embed, header, icons, and actions as the in-portfolio
-  modal, but a separate entry. It is not linked from the navbar.
+The CV is also available from anywhere on the site through an in-page viewer,
+with options to download it or open it in Google Drive.
 
-These deploy as plain static files, so `/projects/` and `/cv/` work natively
-on GitHub Pages (deep links and refreshes included), served from the site
-root (`base: '/'`).
+## AI Areas Represented
 
-```text
-src/
-├── components/        # UI components (Navbar, Hero, CvViewer, CvModal, …)
-├── data/              # Single source of truth: projects, technologies, site info
-├── types/             # TypeScript interfaces (Project, ProjectLink, …)
-├── animations/        # Shared Framer Motion variants
-├── hooks/             # useTheme (dark/light, persisted)
-├── utils/             # cn(), links, asset and YouTube thumbnail helpers
-├── App.tsx            # homepage shell
-├── ProjectsPage.tsx   # /projects page shell
-├── CvPage.tsx         # /cv page shell
-├── main.tsx           # homepage entry
-├── projects-main.tsx  # /projects entry
-├── cv-main.tsx        # /cv entry
-└── index.css          # Tailwind v4 theme tokens (light + dark palettes)
-```
+The portfolio covers 19 projects across five domains:
 
-All portfolio content lives in `src/data/` — add or edit a project by updating
-`src/data/projects.ts` only; every section renders from that data layer.
+- **Computer Vision** — detection, tracking, recognition, segmentation and image retrieval
+- **NLP / RAG** — retrieval-augmented assistants
+- **Deep Learning** — CNNs, transfer learning, autoencoders
+- **Machine Learning** — classification and prediction, including from-scratch implementations
+- **Time-Series Forecasting** — forecasting models and applications
 
-Project visuals are handled honestly per project:
-
-- **With a YouTube demo** → the card shows the video's official thumbnail.
-- **Without one** → an *image-less card variant*: a category-branded header
-  (minimal category icon + technical motif, different for each of the five
-  domains) replaces the media slot. No stock images, no fake screenshots, no
-  repetitive placeholder artwork — variation comes from the project's real
-  category, title, description, and technologies.
-
-### Demo thumbnails & cache busting
-
-Project cards show each demo video's official YouTube thumbnail
-(`https://i.ytimg.com/vi/<id>/hqdefault.jpg`). YouTube never changes that URL
-when a thumbnail is replaced, so browsers and intermediary caches may keep
-showing the old image.
-
-The site therefore appends a `?v=` cache-busting token — `THUMBNAIL_VERSION`
-in [`src/utils/youtube.ts`](src/utils/youtube.ts). **After refreshing a
-thumbnail on YouTube: bump the constant, commit, redeploy.** Every visitor
-then fetches the new image exactly once, and normal caching keeps loading
-fast between bumps. Thumbnails load through a cascade of official variants
-— `maxresdefault` (HD branded thumbnail) first for videos verified to have
-one via `thumbMaxres: true` in `projects.ts`, otherwise `hqdefault` →
-`mqdefault`. If every variant genuinely fails for a video, the card
-switches to its image-less variant instead of ever showing a broken image.
+Each project links to its public repository, with demo videos and live apps where they exist.
 
 ## Local Development
 
@@ -82,38 +47,28 @@ npm install
 npm run dev
 ```
 
-## Build
+## Production Build
 
 ```bash
-npm run build    # type-checks with tsc -b, then bundles into dist/
+npm run build    # type-checks with tsc, then bundles into dist/
 npm run preview  # serve the production build locally
 ```
 
-## GitHub Pages Deployment
+## Deployment
 
-This repository is deployed as a GitHub **User Pages** site
-(`Raafat-Nagy/Raafat-Nagy.github.io`), served from the root of
-`https://raafat-nagy.github.io/`, so the Vite base path is `/`:
+The site is deployed as a **GitHub User Pages** site, served from the root of
+<https://raafat-nagy.github.io/>.
 
-- `https://raafat-nagy.github.io/`
-- `https://raafat-nagy.github.io/projects/`
-- `https://raafat-nagy.github.io/cv/`
+Deployment is fully automated with **GitHub Actions**
+([`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)): every push to `main`
+installs dependencies, builds the site, and publishes it to GitHub Pages.
+The base path comes from the Pages configuration, so no manual setup is needed
+after the one-time repository setting:
 
-Deployment is automated by the workflow in
-[`.github/workflows/deploy.yml`](.github/workflows/deploy.yml), which:
+> **Settings → Pages → Source: GitHub Actions**
 
-1. installs dependencies with `npm ci`,
-2. builds with `BASE_PATH` taken from `actions/configure-pages`
-   (empty → `/` for a user site, `/<repo>` for a project site, so forks keep working),
-3. publishes `dist/` to GitHub Pages on every push to `main`.
+## Contact
 
-One-time setup in the repository: **Settings → Pages → Source: GitHub Actions**.
-
-SEO files live in `public/` and are copied to the site root on build:
-`robots.txt`, `sitemap.xml`, `og-image.svg`, `favicon.svg` and `.nojekyll`.
-
-To build for a custom domain (root path) or a different base locally:
-
-```bash
-BASE_PATH=/ npm run build
-```
+- GitHub: <https://github.com/Raafat-Nagy>
+- LinkedIn: <https://www.linkedin.com/in/raafat-nagy/>
+- Email: RaafatNagy89@gmail.com
