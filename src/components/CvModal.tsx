@@ -70,9 +70,7 @@ export function CvModal() {
                 <FileTextIcon className="h-4 w-4" />
               </span>
               <div className="min-w-0 flex-1">
-                <p className="truncate text-sm font-semibold text-foreground">
-                  Curriculum Vitae
-                </p>
+                <p className="truncate text-sm font-semibold text-foreground">CV</p>
                 <p className="truncate text-xs text-muted">{site.name} — AI Engineer</p>
               </div>
 
