@@ -26,8 +26,8 @@ Static multi-page build (no router needed):
   modal, but a separate entry. It is not linked from the navbar.
 
 These deploy as plain static files, so `/projects/` and `/cv/` work natively
-on GitHub Pages (deep links and refreshes included). The Vite `base` path is
-unchanged.
+on GitHub Pages (deep links and refreshes included), served from the site
+root (`base: '/'`).
 
 ```text
 src/
@@ -108,6 +108,9 @@ Deployment is automated by the workflow in
 3. publishes `dist/` to GitHub Pages on every push to `main`.
 
 One-time setup in the repository: **Settings → Pages → Source: GitHub Actions**.
+
+SEO files live in `public/` and are copied to the site root on build:
+`robots.txt`, `sitemap.xml`, `og-image.svg`, `favicon.svg` and `.nojekyll`.
 
 To build for a custom domain (root path) or a different base locally:
 

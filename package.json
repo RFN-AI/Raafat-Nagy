@@ -4,6 +4,12 @@
   "version": "1.0.0",
   "type": "module",
   "description": "Personal portfolio of Raafat Nagy — AI Engineer. Built with React, TypeScript, Vite, Tailwind CSS and Framer Motion.",
+  "homepage": "https://raafat-nagy.github.io/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Raafat-Nagy/Raafat-Nagy.github.io.git"
+  },
+  "author": "Raafat Nagy",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",

@@ -28,10 +28,6 @@ const base = normalizeBase(process.env.BASE_PATH);
 export default defineConfig({
   base,
   plugins: [react(), tailwindcss()],
-  server: {
-    // Dev-server only: accept proxied preview hosts (e.g. sandboxed previews).
-    allowedHosts: ['.e2b.app'],
-  },
   build: {
     rollupOptions: {
       // Static multi-page build (no router needed):
