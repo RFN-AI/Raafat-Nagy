@@ -5,6 +5,7 @@ export const PROJECT_CATEGORIES: ProjectCategory[] = [
   'NLP / RAG',
   'Deep Learning',
   'Machine Learning',
+  'Time Series',
 ];
 
 export const PROJECT_FILTERS: ProjectFilter[] = ['All', ...PROJECT_CATEGORIES];
@@ -255,6 +256,21 @@ export const projects: Project[] = [
     ],
   },
 
+  // ------------------------------------------------------------------
+  // Time Series
+  // ------------------------------------------------------------------
+  {
+    title: 'Bitcoin Price Forecasting System',
+    tagline: 'End-to-end crypto price forecasting dashboard',
+    description:
+      'Bitcoin price forecasting comparing Prophet, ARIMA and Auto-ARIMA, with backtesting and uncertainty analysis in an interactive Streamlit dashboard.',
+    category: 'Time Series',
+    technologies: ['Prophet', 'ARIMA', 'Streamlit', 'Python'],
+    links: [
+      { type: 'github', url: 'https://github.com/Raafat-Nagy/Bitcoin-Forecasting-App' },
+      { type: 'live', url: 'https://bitcoin-forecasting-app.streamlit.app' },
+    ],
+  },
 ];
 
 export const featuredProjects = projects.filter((project) => project.featured);
