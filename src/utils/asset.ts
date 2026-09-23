@@ -1,9 +1,9 @@
 /**
  * Resolve a path inside `public/` against the Vite base URL so local assets
- * keep working when the site is deployed under a GitHub Pages project path
- * (e.g. /Raafat-Nagy/).
+ * keep working regardless of where the site is deployed (user site at `/`
+ * or a project site such as `/my-repo/`).
  */
 export function publicAsset(path: string): string {
   const base = import.meta.env.BASE_URL ?? '/';
-  return `${base}${path.replace(/^\/+/, '')}`;
+  return `${base.endsWith('/') ? base : `${base}/`}${path.replace(/^\/+/, '')}`;
 }

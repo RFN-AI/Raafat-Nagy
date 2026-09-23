@@ -32,6 +32,7 @@ jobs:
           cache-dependency-path: package-lock.json
 
       - name: Setup Pages
+        id: pages
         uses: actions/configure-pages@v5
 
       - name: Install dependencies
@@ -40,8 +41,10 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          # Serve from /<repository-name>/ — works for any fork or rename
-          BASE_PATH: /${{ github.event.repository.name }}/
+          # Base path resolved by the Pages configuration:
+          #   user site  (<user>.github.io)        -> ""   => "/"
+          #   project site (<user>.github.io/repo) -> "/repo"
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

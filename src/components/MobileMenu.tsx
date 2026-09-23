@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { navLinks, site } from '../data/site';
+import { useNavClick } from '../hooks/useNavClick';
 import { openCvModal } from '../utils/cv';
 import { navHref } from '../utils/links';
 import { FileTextIcon, GitHubIcon, LinkedInIcon, MailIcon } from './Icons';
@@ -11,6 +12,10 @@ interface MobileMenuProps {
 
 /** Slide-down navigation panel for small screens. */
 export function MobileMenu({ open, onClose }: MobileMenuProps) {
+  // Close first, then scroll: the panel collapse changes the page height, so
+  // scrolling must be measured after it, otherwise the page barely moves.
+  const handleNavClick = useNavClick({ onNavigate: onClose, scrollDelay: 260 });
+
   return (
     <AnimatePresence>
       {open && (
@@ -28,7 +33,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
                 <li key={link.href}>
                   <a
                     href={navHref(link.href)}
-                    onClick={onClose}
+                    onClick={(event) => handleNavClick(event, navHref(link.href))}
                     className="block rounded-md px-3 py-2.5 text-sm font-medium text-muted transition-colors hover:bg-surface hover:text-foreground"
                   >
                     {link.label}

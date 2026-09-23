@@ -4,25 +4,30 @@ import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 
 /**
- * Base path for GitHub Pages project sites (https://<user>.github.io/<repo>/).
+ * Base path for GitHub Pages.
  *
- * Defaults to this repository's name. Forks (or a renamed repo) can override it
- * without touching code:
+ * This repository is deployed as a GitHub **User Pages** site
+ * (https://raafat-nagy.github.io/), so the base is the root `/`.
+ *
+ * A fork deployed as a *project* site can override it without touching code:
  *
  *   BASE_PATH=/my-repo/ npm run build
  *
- * The GitHub Actions workflow in .github/workflows/deploy.yml sets BASE_PATH
- * automatically from the repository name, so CI deploys always work.
+ * The GitHub Actions workflow in .github/workflows/deploy.yml passes the base
+ * path reported by actions/configure-pages, which is "" for user sites and
+ * "/<repo>" for project sites — both are normalised below.
  */
-const base = process.env.BASE_PATH ?? '/Raafat-Nagy/';
+function normalizeBase(value: string | undefined): string {
+  if (!value || value === '/' || value === '.') return '/';
+  const trimmed = value.replace(/^\/*/, '/').replace(/\/*$/, '/');
+  return trimmed;
+}
+
+const base = normalizeBase(process.env.BASE_PATH);
 
 export default defineConfig({
   base,
   plugins: [react(), tailwindcss()],
-  server: {
-    // Dev-server only: accept proxied preview hosts (e.g. sandboxed previews).
-    allowedHosts: ['.e2b.app'],
-  },
   build: {
     rollupOptions: {
       // Static multi-page build (no router needed):

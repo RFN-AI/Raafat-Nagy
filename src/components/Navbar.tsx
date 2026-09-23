@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { navLinks, site } from '../data/site';
+import { useHashScroll } from '../hooks/useHashScroll';
+import { useNavClick } from '../hooks/useNavClick';
 import { cn } from '../utils/cn';
 import { openCvModal } from '../utils/cv';
 import { homeHref, navHref } from '../utils/links';
@@ -10,6 +12,10 @@ import { ThemeToggle } from './ThemeToggle';
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const handleNavClick = useNavClick();
+
+  // Arriving at '/#about' from another page: scroll once the section exists.
+  useHashScroll();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -29,7 +35,12 @@ export function Navbar() {
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         {/* Brand */}
-        <a href={homeHref('#top')} className="group flex items-center gap-2.5" aria-label="Back to top">
+        <a
+          href={homeHref('#top')}
+          onClick={(event) => handleNavClick(event, homeHref('#top'))}
+          className="group flex items-center gap-2.5"
+          aria-label="Back to top"
+        >
           <span className="grid h-8 w-8 place-items-center rounded-md border border-line bg-surface font-mono text-sm font-bold text-accent transition-colors group-hover:border-accent/50">
             R
           </span>
@@ -45,6 +56,7 @@ export function Navbar() {
               <li key={link.href}>
                 <a
                   href={navHref(link.href)}
+                  onClick={(event) => handleNavClick(event, navHref(link.href))}
                   className="rounded-md px-3 py-2 text-sm text-muted transition-colors duration-200 hover:text-foreground"
                 >
                   {link.label}
