@@ -49,7 +49,7 @@ export function CvModal() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
-          className="fixed inset-0 z-[80] flex items-center justify-center bg-background/80 p-0 backdrop-blur-sm sm:p-6"
+          className="fixed inset-0 z-[80] bg-background/80 backdrop-blur-sm"
           onClick={() => setOpen(false)}
           role="presentation"
         >
@@ -57,12 +57,12 @@ export function CvModal() {
             role="dialog"
             aria-modal="true"
             aria-label="Curriculum Vitae"
-            initial={{ opacity: 0, scale: 0.97, y: 16 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.97, y: 16 }}
-            transition={{ duration: 0.25, ease: 'easeOut' }}
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.98 }}
+            transition={{ duration: 0.2, ease: 'easeOut' }}
             onClick={(event) => event.stopPropagation()}
-            className="flex h-dvh w-full flex-col overflow-hidden border border-line bg-surface shadow-2xl sm:h-[86vh] sm:max-w-4xl sm:rounded-xl"
+            className="flex h-dvh w-dvw flex-col overflow-hidden bg-surface"
           >
             {/* Dialog header */}
             <div className="flex items-center gap-3 border-b border-line bg-raised/60 px-4 py-3 sm:px-5">
