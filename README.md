@@ -3,17 +3,13 @@
 Personal portfolio website of **Raafat Nagy**, an AI Engineer building practical,
 end-to-end AI systems — from model development to deployed applications.
 
-The site presents selected work, the full project archive, the technologies behind it,
-and a direct way to get in touch. It is a fully static site, built with React and Vite
-and deployed on GitHub Pages.
-
-**Live site:** <https://raafat-nagy.github.io/>
-**Repository:** <https://github.com/Raafat-Nagy/Raafat-Nagy.github.io>
+The site presents selected work, the full project archive, and the technologies
+behind it. It is a fully static site with no backend.
 
 ## Tech Stack
 
 - **React 19** + **TypeScript**
-- **Vite** — build tool, static output, no backend
+- **Vite** — build tool, static output
 - **Tailwind CSS 4** — dark-first design with a light-mode toggle
 - **Framer Motion** — subtle animations that respect `prefers-reduced-motion`
 
@@ -25,23 +21,13 @@ and deployed on GitHub Pages.
 | `/projects/` | The complete project archive, filterable by domain |
 | `/cv/` | Standalone full-screen CV viewer |
 
-Navigation links to the live site:
-
-| Nav item | URL |
-| --- | --- |
-| Home | <https://raafat-nagy.github.io/> |
-| About | <https://raafat-nagy.github.io/#about> |
-| Projects | <https://raafat-nagy.github.io/projects/> |
-| Technologies | <https://raafat-nagy.github.io/#technologies> |
-| Contact | <https://raafat-nagy.github.io/#contact> |
-| CV | <https://raafat-nagy.github.io/cv/> |
-
-The CV is also available from anywhere on the site through an in-page viewer,
-with options to download it or open it in Google Drive.
+Each route is a separate static entry point, so deep links and refreshes work
+without a client-side router. The CV is also available from anywhere on the site
+through an in-page viewer, with options to download it or open it in Google Drive.
 
 ## AI Areas Represented
 
-The portfolio covers 19 projects across five domains:
+The portfolio covers projects across five domains:
 
 - **Computer Vision** — detection, tracking, recognition, segmentation and image retrieval
 - **NLP / RAG** — retrieval-augmented assistants
@@ -50,6 +36,12 @@ The portfolio covers 19 projects across five domains:
 - **Time-Series Forecasting** — forecasting models and applications
 
 Each project links to its public repository, with demo videos and live apps where they exist.
+
+## Project Content
+
+All portfolio content lives in `src/data/` — projects, technologies, education and
+site details. Adding or updating a project means editing `src/data/projects.ts` only;
+every section renders from that data.
 
 ## Local Development
 
@@ -63,23 +55,21 @@ npm run dev
 ```bash
 npm run build    # type-checks with tsc, then bundles into dist/
 npm run preview  # serve the production build locally
+npm run test:nav # navigation checks against the built pages
 ```
 
 ## Deployment
 
-The site is deployed as a **GitHub User Pages** site, served from the root of
-<https://raafat-nagy.github.io/>.
+The site is deployed as a **GitHub User Pages** site and served from the domain root.
 
 Deployment is fully automated with **GitHub Actions**
 ([`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)): every push to `main`
-installs dependencies, builds the site, and publishes it to GitHub Pages.
-The base path comes from the Pages configuration, so no manual setup is needed
-after the one-time repository setting:
+builds the site and publishes it to GitHub Pages. The only one-time repository
+setting required is:
 
 > **Settings → Pages → Source: GitHub Actions**
 
 ## Contact
 
-- GitHub: <https://github.com/Raafat-Nagy>
-- LinkedIn: <https://www.linkedin.com/in/raafat-nagy/>
-- Email: RaafatNagy89@gmail.com
+Contact details and profile links are available in the **Contact** section of the
+live site.
