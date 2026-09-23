@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { navLinks, site } from '../data/site';
+import { openCvModal } from '../utils/cv';
 import { navHref } from '../utils/links';
 import { FileTextIcon, GitHubIcon, LinkedInIcon, MailIcon } from './Icons';
 
@@ -61,15 +62,17 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
               >
                 <MailIcon className="h-4 w-4" />
               </a>
-              <a
-                href={site.cvUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                type="button"
+                onClick={() => {
+                  onClose();
+                  openCvModal();
+                }}
                 className="ml-auto inline-flex h-9 items-center gap-1.5 rounded-md border border-line px-3 text-sm font-medium text-muted transition-colors hover:text-foreground"
               >
                 <FileTextIcon className="h-4 w-4" />
                 CV
-              </a>
+              </button>
             </div>
           </nav>
         </motion.div>

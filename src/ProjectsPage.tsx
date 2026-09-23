@@ -1,4 +1,5 @@
 import { MotionConfig } from 'framer-motion';
+import { CvModal } from './components/CvModal';
 import { Footer } from './components/Footer';
 import { Navbar } from './components/Navbar';
 import { Projects } from './components/Projects';
@@ -22,6 +23,7 @@ export default function ProjectsPage() {
         <Projects />
       </main>
       <Footer />
+      <CvModal />
     </MotionConfig>
   );
 }

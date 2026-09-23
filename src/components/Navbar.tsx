@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { navLinks, site } from '../data/site';
 import { cn } from '../utils/cn';
+import { openCvModal } from '../utils/cv';
 import { homeHref, navHref } from '../utils/links';
 import { FileTextIcon, GitHubIcon } from './Icons';
 import { MobileMenu } from './MobileMenu';
@@ -63,16 +64,15 @@ export function Navbar() {
           >
             <GitHubIcon className="h-4 w-4" />
           </a>
-          <a
-            href={site.cvUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="View CV (opens in Google Drive)"
+          <button
+            type="button"
+            onClick={openCvModal}
+            aria-label="View CV"
             className="hidden h-9 items-center gap-1.5 rounded-md border border-line bg-surface px-3.5 text-sm font-medium text-muted transition-colors duration-200 hover:border-foreground/30 hover:text-foreground sm:inline-flex"
           >
             <FileTextIcon className="h-4 w-4" />
             CV
-          </a>
+          </button>
           <ThemeToggle />
 
           {/* Hamburger */}

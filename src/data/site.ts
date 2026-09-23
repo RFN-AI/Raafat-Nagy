@@ -20,3 +20,11 @@ export const navLinks = [
   { label: 'Technologies', href: '#technologies' },
   { label: 'Contact', href: '#contact' },
 ] as const;
+
+/** Same Drive CV as an embeddable PDF preview (in-site viewer). */
+export const cvEmbedUrl =
+  'https://drive.google.com/file/d/1tZ1fRVdFi407XHDUlikEqsmnCbvbqLQU/preview';
+
+/** Direct-download link for the same Drive CV. */
+export const cvDownloadUrl =
+  'https://drive.google.com/uc?export=download&id=1tZ1fRVdFi407XHDUlikEqsmnCbvbqLQU';

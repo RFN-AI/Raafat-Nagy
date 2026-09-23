@@ -1,6 +1,7 @@
 import { MotionConfig } from 'framer-motion';
 import { About } from './components/About';
 import { Contact } from './components/Contact';
+import { CvModal } from './components/CvModal';
 import { Education } from './components/Education';
 import { FeaturedProjects } from './components/FeaturedProjects';
 import { Footer } from './components/Footer';
@@ -27,6 +28,7 @@ export default function App() {
         <Contact />
       </main>
       <Footer />
+      <CvModal />
     </MotionConfig>
   );
 }

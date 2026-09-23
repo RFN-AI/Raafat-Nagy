@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { fadeUpItem, staggerContainer } from '../animations/variants';
 import { site } from '../data/site';
+import { openCvModal } from '../utils/cv';
 import { projectsPageHref } from '../utils/links';
 import { FileTextIcon, GitHubIcon, LinkedInIcon } from './Icons';
 import { HeroVisual } from './HeroVisual';
@@ -64,15 +65,14 @@ export function Hero() {
           >
             View Projects
           </a>
-          <a
-            href={site.cvUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            type="button"
+            onClick={openCvModal}
             className="inline-flex h-11 items-center gap-2 rounded-lg border border-line bg-surface/70 px-5 text-sm font-semibold text-foreground backdrop-blur transition-colors duration-200 hover:border-accent/50 hover:text-accent-strong dark:hover:text-accent"
           >
             <FileTextIcon className="h-4 w-4" />
             View CV
-          </a>
+          </button>
           <a
             href={site.githubUrl}
             target="_blank"
