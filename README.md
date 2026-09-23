@@ -33,7 +33,6 @@ The portfolio covers projects across five domains:
 - **NLP / RAG** — retrieval-augmented assistants
 - **Deep Learning** — CNNs, transfer learning, autoencoders
 - **Machine Learning** — classification and prediction, including from-scratch implementations
-- **Time-Series Forecasting** — forecasting models and applications
 
 Each project links to its public repository, with demo videos and live apps where they exist.
 

@@ -17,10 +17,6 @@ export const technologyGroups: TechnologyGroup[] = [
     items: ['LangChain', 'HuggingFace', 'Groq', 'Chainlit'],
   },
   {
-    title: 'Time Series & Forecasting',
-    items: ['Prophet', 'ARIMA', 'Auto-ARIMA'],
-  },
-  {
     title: 'Deployment & Applications',
     items: ['FastAPI', 'Streamlit', 'Docker', 'React', 'JavaScript', 'python-telegram-bot'],
   },

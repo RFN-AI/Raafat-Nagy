@@ -58,14 +58,6 @@ function CategoryGlyph({ category }: { category: ProjectCategory }) {
           <path d="m6.8 6.2 10.5.5M6.2 7.2l1.2 9.5M18.9 8.9l.3 6.7M10 17.9l7.6-.3" />
         </>
       );
-    case 'Time Series':
-      // Axes + zigzag series
-      return (
-        <>
-          <path d="M4 4v15.5H20" />
-          <path d="m7 14 3.5-5 3 3 4.5-6.5" />
-        </>
-      );
   }
 }
 
@@ -132,9 +124,6 @@ function MotifGlyph({ category }: { category: ProjectCategory }) {
           <circle cx="44" cy="16.5" r="1.5" />
         </>
       );
-    case 'Time Series':
-      // Single series line
-      return <path d="M4 16 12 8l7 4.5L27 4l8 6 9-4.5" />;
   }
 }
 

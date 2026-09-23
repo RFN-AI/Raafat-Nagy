@@ -2,8 +2,7 @@ export type ProjectCategory =
   | 'Computer Vision'
   | 'NLP / RAG'
   | 'Deep Learning'
-  | 'Machine Learning'
-  | 'Time Series';
+  | 'Machine Learning';
 
 export type ProjectLinkType = 'github' | 'demo' | 'live';
 

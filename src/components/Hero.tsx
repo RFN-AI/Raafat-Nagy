@@ -11,7 +11,6 @@ const DOMAIN_STATS = [
   ['NLP / RAG', '01'],
   ['Deep Learning', '05'],
   ['Machine Learning', '03'],
-  ['Time Series', '01'],
 ] as const;
 
 export function Hero() {

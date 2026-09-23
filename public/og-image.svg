@@ -12,7 +12,7 @@
   </g>
   <text x="110" y="290" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="84" font-weight="800" fill="#e8ebf0">Raafat Nagy</text>
   <text x="112" y="350" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="26" font-weight="500" letter-spacing="8" fill="#2dd4bf">AI ENGINEER</text>
-  <text x="112" y="425" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="24" fill="#9aa4b2">Computer Vision · NLP / RAG · Deep Learning · Machine Learning · Time Series</text>
+  <text x="112" y="425" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="24" fill="#9aa4b2">Computer Vision · NLP / RAG · Deep Learning · Machine Learning</text>
   <rect x="112" y="470" width="7" height="7" fill="#2dd4bf"/>
   <rect x="126" y="472.5" width="180" height="2" fill="#1e242e"/>
 </svg>
