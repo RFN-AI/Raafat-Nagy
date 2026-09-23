@@ -43,7 +43,10 @@ export function useNavClick({ onNavigate, scrollDelay = 0 }: UseNavClickOptions 
       const scroll = () => {
         scrollToAnchor(href);
         // Keep the URL in sync without triggering a second (jumpy) hash scroll.
-        const url = href === '#top' ? window.location.pathname : href;
+        // Preserve the current path (and query) so '/projects/#projects' never
+        // collapses to a bare '#projects' against the wrong page.
+        const { pathname, search } = window.location;
+        const url = href === '#top' ? `${pathname}${search}` : `${pathname}${search}${href}`;
         window.history.replaceState(null, '', url);
       };
 

@@ -87,6 +87,11 @@ async function run() {
   check('click Home scrolls to top', homeClick.scrolledInto ?? (homeClick.scrolledTo ? 'top:0' : undefined), 'top');
   const projClick = clickAndInspect(window, links[2]);
   check('click Projects does NOT preventDefault (real navigation)', projClick.prevented, false);
+  clickAndInspect(window, links[1]);
+  check('homepage URL keeps / path after #about click', window.location.pathname, '/');
+  check('homepage URL hash after #about click', window.location.hash, '#about');
+  clickAndInspect(window, links[0]);
+  check('Home click clears the hash', window.location.hash, '');
 
   // sections exist to scroll to
   for (const id of ['top', 'about', 'technologies', 'contact', 'featured', 'education']) {
@@ -118,12 +123,19 @@ async function run() {
   check('nav entry count', links.length, 5);
   check('Home href -> homepage root', links[0].getAttribute('href'), '/');
   check('About href -> /#about', links[1].getAttribute('href'), '/#about');
-  check('Projects href -> /projects/', links[2].getAttribute('href'), '/projects/');
+  check('Projects href stays in-page anchor on /projects/ (no reload)', links[2].getAttribute('href'), '#projects');
   check('Technologies href -> /#technologies', links[3].getAttribute('href'), '/#technologies');
   check('Contact href -> /#contact', links[4].getAttribute('href'), '/#contact');
   const crossPage = clickAndInspect(window, links[1]);
   check('cross-page About click is a REAL navigation (not prevented)', crossPage.prevented, false);
   check('projects section exists', Boolean(window.document.getElementById('projects')), true);
+  const selfProjects = clickAndInspect(window, links[2]);
+  check('Projects on /projects/ is handled in JS (no page reload)', selfProjects.prevented, true);
+  check('Projects on /projects/ scrolls to #projects', selfProjects.scrolledInto, 'projects');
+  check('URL keeps /projects/ path after in-page click', window.location.pathname, '/projects/');
+  check('URL hash after in-page Projects click', window.location.hash, '#projects');
+  const homeFromProjects = clickAndInspect(window, links[0]);
+  check('Home on /projects/ is a real navigation to /', homeFromProjects.prevented, false);
 
   console.log('\n/projects/ — mobile menu');
   const burger2 = window.document.querySelector('button[aria-controls="mobile-nav"]');
@@ -133,6 +145,7 @@ async function run() {
   check('mobile labels on /projects/', mobileLinks.map((a) => a.textContent.trim()).join(','), 'Home,About,Projects,Technologies,Contact');
   check('mobile Home -> /', mobileLinks[0].getAttribute('href'), '/');
   check('mobile Contact -> /#contact', mobileLinks[4].getAttribute('href'), '/#contact');
+  check('mobile Projects stays in-page anchor on /projects/', mobileLinks[2].getAttribute('href'), '#projects');
   const mobileCross = clickAndInspect(window, mobileLinks[4]);
   check('mobile cross-page Contact navigates (not prevented)', mobileCross.prevented, false);
   await new Promise((r) => setTimeout(r, 400));
@@ -160,6 +173,16 @@ async function run() {
   check('no navbar on /cv/ (by design)', window.document.querySelector('nav[aria-label="Primary"]'), null);
   check('CV iframe present', Boolean(window.document.querySelector('iframe')), true);
   check('CV close button present', Boolean(window.document.querySelector('button[aria-label="Close CV viewer"]')), true);
+
+  // ---------------- Reduced motion ----------------
+  console.log('\nprefers-reduced-motion');
+  window = await loadPage('/', 'main.js');
+  window.matchMedia = (q) => ({ matches: /reduce/.test(q), media: q, addEventListener() {}, removeEventListener() {}, addListener() {}, removeListener() {} });
+  let captured;
+  window.HTMLElement.prototype.scrollIntoView = function (opts) { captured = opts; window.__scrolledInto = this.id; };
+  links = navEntries(window, 'nav[aria-label="Primary"] a');
+  clickAndInspect(window, links[1]);
+  check('scripted scroll uses behavior:auto under reduced motion', captured && captured.behavior, 'auto');
 
   console.log(`\n${failures === 0 ? 'ALL CHECKS PASSED' : `${failures} FAILED`} — ${checks - failures}/${checks}`);
   process.exit(failures === 0 ? 0 : 1);

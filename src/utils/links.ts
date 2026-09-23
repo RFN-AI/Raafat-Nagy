@@ -31,14 +31,29 @@ export function homeHref(anchor: string): string {
  * Navbar/mobile resolver: the 'Projects' nav entry (#projects sentinel)
  * goes to the dedicated page from anywhere; every other entry is a
  * homepage anchor.
+ *
+ * Exception: already ON the projects page, 'Projects' stays an in-page anchor
+ * so it scrolls to the section instead of reloading the current page.
  */
 export function navHref(href: string): string {
-  return href === PROJECTS_ANCHOR ? projectsPageHref : homeHref(href);
+  if (href === PROJECTS_ANCHOR) {
+    return isProjectsPage ? PROJECTS_ANCHOR : projectsPageHref;
+  }
+  return homeHref(href);
 }
 
 /** True when an href is an in-page anchor ('#about') rather than a page URL. */
 export function isAnchorHref(href: string): boolean {
   return href.startsWith('#');
+}
+
+/** Honour the visitor's reduced-motion preference for scripted scrolling. */
+function prefersReducedMotion(): boolean {
+  return (
+    typeof window !== 'undefined' &&
+    typeof window.matchMedia === 'function' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  );
 }
 
 /**
@@ -48,8 +63,12 @@ export function isAnchorHref(href: string): boolean {
  * to the very top. Returns false when the target does not exist yet (the page
  * is still mounting), so callers can retry.
  */
-export function scrollToAnchor(anchor: string, behavior: ScrollBehavior = 'smooth'): boolean {
+export function scrollToAnchor(anchor: string, requested: ScrollBehavior = 'smooth'): boolean {
   if (typeof document === 'undefined') return false;
+
+  // CSS `scroll-behavior: auto` under prefers-reduced-motion does not apply to
+  // scripted scrolls, so the preference is enforced here too.
+  const behavior: ScrollBehavior = prefersReducedMotion() ? 'auto' : requested;
 
   const id = anchor.replace(/^#/, '');
   const target = document.getElementById(id);
