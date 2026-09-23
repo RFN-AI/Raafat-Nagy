@@ -25,6 +25,17 @@ and deployed on GitHub Pages.
 | `/projects/` | The complete project archive, filterable by domain |
 | `/cv/` | Standalone full-screen CV viewer |
 
+Navigation links to the live site:
+
+| Nav item | URL |
+| --- | --- |
+| Home | <https://raafat-nagy.github.io/> |
+| About | <https://raafat-nagy.github.io/#about> |
+| Projects | <https://raafat-nagy.github.io/projects/> |
+| Technologies | <https://raafat-nagy.github.io/#technologies> |
+| Contact | <https://raafat-nagy.github.io/#contact> |
+| CV | <https://raafat-nagy.github.io/cv/> |
+
 The CV is also available from anywhere on the site through an in-page viewer,
 with options to download it or open it in Google Drive.
 

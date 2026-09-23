@@ -13,7 +13,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:nav": "node scripts/build-harness.mjs && node scripts/nav-check.mjs"
   },
   "dependencies": {
     "framer-motion": "13.4.1",
