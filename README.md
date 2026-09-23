@@ -91,12 +91,20 @@ npm run preview  # serve the production build locally
 
 ## GitHub Pages Deployment
 
-The site is served from `https://raafat-nagy.github.io/Raafat-Nagy/`, so the Vite
-base path defaults to `/Raafat-Nagy/`. Deployment is automated by the workflow in
+This repository is deployed as a GitHub **User Pages** site
+(`Raafat-Nagy/Raafat-Nagy.github.io`), served from the root of
+`https://raafat-nagy.github.io/`, so the Vite base path is `/`:
+
+- `https://raafat-nagy.github.io/`
+- `https://raafat-nagy.github.io/projects/`
+- `https://raafat-nagy.github.io/cv/`
+
+Deployment is automated by the workflow in
 [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml), which:
 
 1. installs dependencies with `npm ci`,
-2. builds with `BASE_PATH=/<repository-name>/` (so forks/renames keep working),
+2. builds with `BASE_PATH` taken from `actions/configure-pages`
+   (empty → `/` for a user site, `/<repo>` for a project site, so forks keep working),
 3. publishes `dist/` to GitHub Pages on every push to `main`.
 
 One-time setup in the repository: **Settings → Pages → Source: GitHub Actions**.
