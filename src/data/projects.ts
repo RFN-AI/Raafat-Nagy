@@ -22,6 +22,22 @@ export const projects: Project[] = [
   // Computer Vision
   // ------------------------------------------------------------------
   {
+    title: 'Vision Chat',
+    tagline: 'Local vision-language AI with conversation memory',
+    description:
+      'A stateful vision chat assistant built with llama.cpp, LangChain and Chainlit. Upload an image once, ask follow-up questions, and keep the conversation context throughout the session — fully local inference.',
+    category: 'Computer Vision',
+    technologies: ['llama.cpp', 'LangChain', 'Chainlit', 'Python'],
+    links: [
+      { type: 'github', url: 'https://github.com/Raafat-Nagy/Vision-Chat' },
+      { type: 'demo', url: 'https://youtu.be/rjfEHkhLEhU' },
+    ],
+    image: 'media/vision-chat.jpg',
+    videoId: 'rjfEHkhLEhU',
+    thumbMaxres: true,
+    featured: true,
+  },
+  {
     title: 'VisionSeek AI',
     tagline: 'Semantic image retrieval for custom datasets',
     description:
@@ -33,6 +49,7 @@ export const projects: Project[] = [
       { type: 'demo', url: 'https://youtu.be/ZqEm67eRX3g' },
     ],
     videoId: 'ZqEm67eRX3g',
+    thumbMaxres: true,
     featured: true,
   },
   {
@@ -47,6 +64,7 @@ export const projects: Project[] = [
       { type: 'demo', url: 'https://youtu.be/O9JE4Gl0QDs' },
     ],
     videoId: 'O9JE4Gl0QDs',
+    thumbMaxres: true,
     featured: true,
   },
   {
@@ -64,6 +82,7 @@ export const projects: Project[] = [
       { type: 'demo', url: 'https://youtu.be/1HSTwBKCELk' },
     ],
     videoId: '1HSTwBKCELk',
+    thumbMaxres: true,
     featured: true,
   },
   {
@@ -78,6 +97,7 @@ export const projects: Project[] = [
       { type: 'demo', url: 'https://youtu.be/ONM9z99RVaU' },
     ],
     videoId: 'ONM9z99RVaU',
+    thumbMaxres: true,
   },
   {
     title: 'Smart Face Attendance System',
@@ -114,6 +134,7 @@ export const projects: Project[] = [
       { type: 'demo', url: 'https://youtu.be/aCKkCBUu3DM' },
     ],
     videoId: 'aCKkCBUu3DM',
+    thumbMaxres: true,
   },
   {
     title: 'Object Detection Telegram Bot',
@@ -127,6 +148,7 @@ export const projects: Project[] = [
       { type: 'demo', url: 'https://youtu.be/0K8c3HZsd2U' },
     ],
     videoId: '0K8c3HZsd2U',
+    thumbMaxres: true,
   },
 
   // ------------------------------------------------------------------
@@ -144,6 +166,7 @@ export const projects: Project[] = [
       { type: 'demo', url: 'https://youtu.be/BU5qdgPPQN0' },
     ],
     videoId: 'BU5qdgPPQN0',
+    thumbMaxres: true,
     featured: true,
   },
 

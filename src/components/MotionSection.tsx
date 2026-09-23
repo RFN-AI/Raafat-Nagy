@@ -25,7 +25,7 @@ export function MotionSection({
     <motion.section
       id={id}
       aria-labelledby={labelledBy}
-      className={cn('py-20 sm:py-28', className)}
+      className={cn('py-14 sm:py-20', className)}
       initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-90px' }}

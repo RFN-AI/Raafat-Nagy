@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { navLinks, site } from '../data/site';
-import { GitHubIcon, LinkedInIcon, MailIcon } from './Icons';
+import { navHref } from '../utils/links';
+import { FileTextIcon, GitHubIcon, LinkedInIcon, MailIcon } from './Icons';
 
 interface MobileMenuProps {
   open: boolean;
@@ -25,7 +26,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
               {navLinks.map((link) => (
                 <li key={link.href}>
                   <a
-                    href={link.href}
+                    href={navHref(link.href)}
                     onClick={onClose}
                     className="block rounded-md px-3 py-2.5 text-sm font-medium text-muted transition-colors hover:bg-surface hover:text-foreground"
                   >
@@ -59,6 +60,15 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
                 className="grid h-9 w-9 place-items-center rounded-md border border-line text-muted transition-colors hover:text-foreground"
               >
                 <MailIcon className="h-4 w-4" />
+              </a>
+              <a
+                href={site.cvUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ml-auto inline-flex h-9 items-center gap-1.5 rounded-md border border-line px-3 text-sm font-medium text-muted transition-colors hover:text-foreground"
+              >
+                <FileTextIcon className="h-4 w-4" />
+                CV
               </a>
             </div>
           </nav>

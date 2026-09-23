@@ -1,5 +1,8 @@
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 import type { Project } from '../types/project';
+import { cn } from '../utils/cn';
+import { ImagelessCardHeader } from './ImagelessProject';
 import { ProjectLinks } from './ProjectLinks';
 import { ProjectThumb } from './ProjectThumb';
 
@@ -9,7 +12,17 @@ interface ProjectCardProps {
   project: Project;
 }
 
+/**
+ * Two intentional variants, one design system:
+ *  - with demo video  -> YouTube thumbnail media slot (variant cascade)
+ *  - without          -> image-less card (category header), no fake imagery
+ * If a video's thumbnails genuinely fail to load, the card permanently
+ * switches to the image-less variant — never a broken image.
+ */
 export function ProjectCard({ project }: ProjectCardProps) {
+  const [thumbFailed, setThumbFailed] = useState(false);
+  const hasMedia = Boolean(project.image) || Boolean(project.videoId);
+  const showThumb = hasMedia && !thumbFailed;
   const visibleTech = project.technologies.slice(0, VISIBLE_TECHNOLOGIES);
   const hiddenCount = project.technologies.length - visibleTech.length;
 
@@ -22,20 +35,41 @@ export function ProjectCard({ project }: ProjectCardProps) {
       transition={{ duration: 0.35, ease: 'easeOut' }}
       className="flex flex-col overflow-hidden rounded-xl border border-line bg-raised transition-colors duration-300 hover:border-accent/45"
     >
-      <ProjectThumb
-        title={project.title}
-        videoId={project.videoId}
-        className="aspect-[16/9] border-b border-line"
-      />
+      {showThumb ? (
+        <ProjectThumb
+          title={project.title}
+          localImage={project.image}
+          videoId={project.videoId}
+          maxres={project.thumbMaxres}
+          onLoadError={() => setThumbFailed(true)}
+          className="aspect-[16/9] border-b border-line"
+        />
+      ) : (
+        <ImagelessCardHeader category={project.category} />
+      )}
 
       <div className="flex flex-1 flex-col p-5">
-        <p className="font-mono text-[10px] font-medium uppercase tracking-[0.2em] text-accent">
-          {project.category}
-        </p>
-        <h3 className="mt-2 text-base font-semibold leading-snug text-foreground">
+        {showThumb && (
+          <p className="font-mono text-[10px] font-medium uppercase tracking-[0.2em] text-accent">
+            {project.category}
+          </p>
+        )}
+        <h3
+          className={cn(
+            'text-base font-semibold leading-snug text-foreground',
+            showThumb && 'mt-2',
+          )}
+        >
           {project.title}
         </h3>
-        <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted">{project.description}</p>
+        <p
+          className={cn(
+            'mt-2 text-sm leading-relaxed text-muted',
+            showThumb ? 'line-clamp-3' : 'line-clamp-4',
+          )}
+        >
+          {project.description}
+        </p>
 
         <ul aria-label="Technologies" className="mt-4 flex flex-wrap gap-1.5">
           {visibleTech.map((tech) => (

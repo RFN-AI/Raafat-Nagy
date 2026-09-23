@@ -8,6 +8,8 @@ export const site = {
   email: 'RaafatNagy89@gmail.com',
   githubUrl: 'https://github.com/Raafat-Nagy',
   linkedinUrl: 'https://www.linkedin.com/in/raafat-nagy/',
+  /** CV (hosted on Google Drive) — opens in the Drive viewer. */
+  cvUrl: 'https://drive.google.com/file/d/1tZ1fRVdFi407XHDUlikEqsmnCbvbqLQU/view',
   /** The AI Projects Hub repository this portfolio is based on. */
   hubUrl: 'https://github.com/Raafat-Nagy/AI-Projects-Hub',
 } as const;

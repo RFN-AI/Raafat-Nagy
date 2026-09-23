@@ -6,7 +6,7 @@ import type { TechnologyGroup } from '../types/technology';
 export const technologyGroups: TechnologyGroup[] = [
   {
     title: 'AI / Machine Learning',
-    items: ['Python', 'PyTorch', 'TensorFlow', 'Keras', 'scikit-learn'],
+    items: ['Python', 'PyTorch', 'TensorFlow', 'Keras', 'scikit-learn', 'llama.cpp'],
   },
   {
     title: 'Computer Vision',
@@ -14,7 +14,7 @@ export const technologyGroups: TechnologyGroup[] = [
   },
   {
     title: 'NLP / RAG',
-    items: ['LangChain', 'HuggingFace', 'Groq'],
+    items: ['LangChain', 'HuggingFace', 'Groq', 'Chainlit'],
   },
   {
     title: 'Time Series & Forecasting',

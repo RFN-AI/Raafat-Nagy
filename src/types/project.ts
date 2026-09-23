@@ -24,6 +24,19 @@ export interface Project {
   links: ProjectLink[];
   /** YouTube video id — used to build the demo thumbnail. */
   videoId?: string;
+  /**
+   * Set true only for videos VERIFIED to have a high-res (branded)
+   * maxresdefault thumbnail. Those load maxresdefault -> hqdefault ->
+   * mqdefault; other videos stay on hqdefault -> mqdefault so videos
+   * without an HD variant never get YouTube's gray fallback image.
+   */
+  thumbMaxres?: boolean;
+  /**
+   * Optional local project image (real screenshot) stored in `public/`,
+   * e.g. 'media/visionseek-ai.jpg'. Takes priority over the YouTube
+   * thumbnail when present.
+   */
+  image?: string;
   /** Shown in the Featured section. */
   featured?: boolean;
 }

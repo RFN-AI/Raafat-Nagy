@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { navLinks, site } from '../data/site';
 import { cn } from '../utils/cn';
-import { GitHubIcon } from './Icons';
+import { homeHref, navHref } from '../utils/links';
+import { FileTextIcon, GitHubIcon } from './Icons';
 import { MobileMenu } from './MobileMenu';
 import { ThemeToggle } from './ThemeToggle';
 
@@ -27,7 +28,7 @@ export function Navbar() {
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         {/* Brand */}
-        <a href="#top" className="group flex items-center gap-2.5" aria-label="Back to top">
+        <a href={homeHref('#top')} className="group flex items-center gap-2.5" aria-label="Back to top">
           <span className="grid h-8 w-8 place-items-center rounded-md border border-line bg-surface font-mono text-sm font-bold text-accent transition-colors group-hover:border-accent/50">
             R
           </span>
@@ -42,7 +43,7 @@ export function Navbar() {
             {navLinks.map((link) => (
               <li key={link.href}>
                 <a
-                  href={link.href}
+                  href={navHref(link.href)}
                   className="rounded-md px-3 py-2 text-sm text-muted transition-colors duration-200 hover:text-foreground"
                 >
                   {link.label}
@@ -61,6 +62,16 @@ export function Navbar() {
             className="hidden h-9 w-9 place-items-center rounded-md border border-line bg-surface text-muted transition-colors duration-200 hover:border-foreground/30 hover:text-foreground sm:grid"
           >
             <GitHubIcon className="h-4 w-4" />
+          </a>
+          <a
+            href={site.cvUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="View CV (opens in Google Drive)"
+            className="hidden h-9 items-center gap-1.5 rounded-md border border-line bg-surface px-3.5 text-sm font-medium text-muted transition-colors duration-200 hover:border-foreground/30 hover:text-foreground sm:inline-flex"
+          >
+            <FileTextIcon className="h-4 w-4" />
+            CV
           </a>
           <ThemeToggle />
 

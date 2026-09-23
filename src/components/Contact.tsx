@@ -4,7 +4,7 @@ import { GitHubIcon, LinkedInIcon, MailIcon } from './Icons';
 
 export function Contact() {
   return (
-    <section id="contact" aria-labelledby="contact-heading" className="relative overflow-hidden py-20 sm:py-28">
+    <section id="contact" aria-labelledby="contact-heading" className="relative overflow-hidden py-14 sm:py-20">
       {/* subtle technical backdrop */}
       <div
         aria-hidden="true"

@@ -1,70 +1,102 @@
 import { useState } from 'react';
 import { cn } from '../utils/cn';
-import { youtubeThumbnail } from '../utils/youtube';
+import { publicAsset } from '../utils/asset';
+import { youtubeThumbnail, type ThumbnailVariant } from '../utils/youtube';
+
+/**
+ * YouTube thumbnail cascade: try the best available official variant first,
+ * then degrade. maxresdefault is only included when the parent confirms the
+ * video actually has an HD branded thumbnail (Project.thumbMaxres). If every
+ * variant fails, the parent is notified so the card can switch to its
+ * image-less design — a broken <img> is never left on screen.
+ */
+const DEFAULT_CHAIN: ThumbnailVariant[] = ['hqdefault', 'mqdefault'];
+const MAXRES_CHAIN: ThumbnailVariant[] = ['maxresdefault', ...DEFAULT_CHAIN];
 
 interface ProjectThumbProps {
   title: string;
+  /** Local screenshot path under public/ — takes priority over YouTube. */
+  localImage?: string;
   videoId?: string;
+  /** Video is verified to have a high-res branded maxresdefault thumbnail. */
+  maxres?: boolean;
+  /**
+   * cover (default): fill the box, may crop — used in the compact grid cards.
+   * contain: show the full image within the box, letterboxed on the dark
+   * thumb background — used by Featured so branded artwork is never cropped.
+   */
+  fit?: 'cover' | 'contain';
   className?: string;
   /** Load eagerly for above-the-fold images (featured projects). */
   eager?: boolean;
-}
-
-function initials(title: string): string {
-  return title
-    .split(/[^A-Za-z0-9]+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((word) => word[0]!.toUpperCase())
-    .join('');
-}
-
-/** Decorative placeholder art for projects without a demo video. */
-function FallbackArt({ title }: { title: string }) {
-  return (
-    <div aria-hidden="true" className="absolute inset-0">
-      <div className="bg-grid absolute inset-0 opacity-70" />
-      <div className="absolute inset-0 bg-gradient-to-br from-accent/15 via-transparent to-transparent" />
-      <span className="absolute bottom-3 right-4 select-none font-mono text-5xl font-bold tracking-tight text-white/10 sm:text-6xl">
-        {initials(title)}
-      </span>
-    </div>
-  );
+  /** Called after the image (or every YouTube variant) failed to load. */
+  onLoadError?: () => void;
 }
 
 /**
- * Project visual: YouTube demo thumbnail when a demo video exists,
- * otherwise an intentional monogram-and-grid placeholder.
+ * Project media, resolved with an honest priority:
+ *   1. local real screenshot (provided by the project owner)
+ *   2. official YouTube demo thumbnail (cache-busted, variant cascade)
+ *   3. nothing → parent switches the card to its image-less design
  */
-export function ProjectThumb({ title, videoId, className, eager = false }: ProjectThumbProps) {
-  const [imageFailed, setImageFailed] = useState(false);
-  const showImage = Boolean(videoId) && !imageFailed;
+export function ProjectThumb({
+  title,
+  localImage,
+  videoId,
+  maxres = false,
+  fit = 'cover',
+  className,
+  eager = false,
+  onLoadError,
+}: ProjectThumbProps) {
+  const [variantIndex, setVariantIndex] = useState(0);
+  const chain = maxres ? MAXRES_CHAIN : DEFAULT_CHAIN;
+
+  const src = localImage
+    ? publicAsset(localImage)
+    : videoId
+      ? youtubeThumbnail(videoId, chain[variantIndex])
+      : undefined;
+
+  const handleError = () => {
+    if (localImage || !videoId || variantIndex >= chain.length - 1) {
+      onLoadError?.();
+    } else {
+      setVariantIndex((index) => index + 1);
+    }
+  };
+
+  if (!src) return null;
 
   return (
-    <div
-      className={cn(
-        'group/thumb relative overflow-hidden bg-[#0b0e13]',
-        className,
-      )}
-    >
-      {showImage && videoId ? (
-        <>
-          <img
-            src={youtubeThumbnail(videoId)}
-            alt={`${title} — demo preview`}
-            loading={eager ? 'eager' : 'lazy'}
-            decoding="async"
-            onError={() => setImageFailed(true)}
-            className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover/thumb:scale-[1.03]"
-          />
-          {/* readability gradient + play hint */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/10" />
-          <span className="absolute bottom-3 right-3 grid h-9 w-9 place-items-center rounded-full border border-white/25 bg-black/55 text-white/90 backdrop-blur-sm transition-colors duration-300 group-hover/thumb:border-accent group-hover/thumb:text-accent">
-            <PlayGlyph className="ml-0.5 h-3.5 w-3.5" />
-          </span>
-        </>
-      ) : (
-        <FallbackArt title={title} />
+    <div className={cn('group/thumb relative overflow-hidden bg-[#0b0e13]', className)}>
+      <img
+        // Remount per variant so a stale error state can never stick to the <img>
+        key={localImage ?? `${videoId}-${variantIndex}`}
+        src={src}
+        alt={localImage ? `${title} — screenshot` : `${title} — demo preview`}
+        loading={eager ? 'eager' : 'lazy'}
+        decoding="async"
+        onError={handleError}
+        className={cn(
+          'h-full w-full transition-transform duration-500 ease-out',
+          fit === 'cover'
+            ? 'object-cover group-hover/thumb:scale-[1.03]'
+            : 'object-contain object-center',
+        )}
+      />
+      {/* readability gradient + play hint for videos */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/10"
+      />
+      {videoId && (
+        <span
+          aria-hidden="true"
+          className="absolute bottom-3 right-3 grid h-9 w-9 place-items-center rounded-full border border-white/25 bg-black/55 text-white/90 backdrop-blur-sm transition-colors duration-300 group-hover/thumb:border-accent group-hover/thumb:text-accent"
+        >
+          <PlayGlyph className="ml-0.5 h-3.5 w-3.5" />
+        </span>
       )}
     </div>
   );

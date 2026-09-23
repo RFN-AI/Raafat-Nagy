@@ -1,11 +1,12 @@
 import { motion } from 'framer-motion';
 import { fadeUpItem, staggerContainer } from '../animations/variants';
 import { site } from '../data/site';
-import { GitHubIcon, LinkedInIcon } from './Icons';
+import { projectsPageHref } from '../utils/links';
+import { FileTextIcon, GitHubIcon, LinkedInIcon } from './Icons';
 import { HeroVisual } from './HeroVisual';
 
 const DOMAIN_STATS = [
-  ['Computer Vision', '08'],
+  ['Computer Vision', '09'],
   ['NLP / RAG', '01'],
   ['Deep Learning', '05'],
   ['Machine Learning', '03'],
@@ -21,7 +22,7 @@ export function Hero() {
         variants={staggerContainer}
         initial="hidden"
         animate="show"
-        className="relative mx-auto flex max-w-6xl flex-col items-center px-4 pb-20 pt-32 text-center sm:px-6 sm:pb-28 sm:pt-44"
+        className="relative mx-auto flex max-w-6xl flex-col items-center px-4 pb-16 pt-32 text-center sm:px-6 sm:pb-20 sm:pt-44"
       >
         <motion.p
           variants={fadeUpItem}
@@ -49,20 +50,28 @@ export function Hero() {
           variants={fadeUpItem}
           className="mt-6 max-w-2xl text-base leading-relaxed text-muted sm:text-lg"
         >
-          I build intelligent systems across{' '}
+          I build practical AI systems across{' '}
           <span className="text-foreground">Computer Vision</span>,{' '}
-          <span className="text-foreground">NLP / RAG</span>,{' '}
-          <span className="text-foreground">Deep Learning</span> and{' '}
-          <span className="text-foreground">Time-Series Forecasting</span> — covering both model
-          development and end-to-end system design.
+          <span className="text-foreground">NLP</span>, and{' '}
+          <span className="text-foreground">LLM applications</span> — from model development to
+          end-to-end deployment.
         </motion.p>
 
         <motion.div variants={fadeUpItem} className="mt-9 flex flex-wrap items-center justify-center gap-3">
           <a
-            href="#projects"
+            href={projectsPageHref}
             className="inline-flex h-11 items-center gap-2 rounded-lg bg-accent-strong px-6 text-sm font-semibold text-white transition-colors duration-200 hover:bg-accent dark:text-on-accent"
           >
             View Projects
+          </a>
+          <a
+            href={site.cvUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex h-11 items-center gap-2 rounded-lg border border-line bg-surface/70 px-5 text-sm font-semibold text-foreground backdrop-blur transition-colors duration-200 hover:border-accent/50 hover:text-accent-strong dark:hover:text-accent"
+          >
+            <FileTextIcon className="h-4 w-4" />
+            View CV
           </a>
           <a
             href={site.githubUrl}
