@@ -83,7 +83,7 @@ export function CvModal() {
                   aria-label="Download CV"
                   className="inline-flex h-8 items-center gap-1.5 rounded-md border border-line bg-surface px-3 text-xs font-semibold text-muted transition-colors duration-200 hover:border-accent/50 hover:text-accent-strong dark:hover:text-accent"
                 >
-                  <DownloadIcon className="h-3.5 w-3.5" />
+                  <DownloadIcon className="h-4 w-4" />
                 </a>
                 <a
                   href={site.cvUrl}
@@ -92,7 +92,7 @@ export function CvModal() {
                   aria-label="Open CV in Google Drive"
                   className="inline-flex h-8 items-center gap-1.5 rounded-md border border-line bg-surface px-3 text-xs font-semibold text-muted transition-colors duration-200 hover:border-accent/50 hover:text-accent-strong dark:hover:text-accent"
                 >
-                  <ExternalLinkIcon className="h-3.5 w-3.5" />
+                  <ExternalLinkIcon className="h-4 w-4" />
                 </a>
                 <button
                   ref={closeButtonRef}
